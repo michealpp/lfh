@@ -1,4 +1,4 @@
-package micheal.com;
+package basic.com;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
