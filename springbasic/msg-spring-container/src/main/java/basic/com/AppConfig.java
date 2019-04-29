@@ -14,6 +14,7 @@ public class AppConfig{
 
     @Bean
     MessageService messageService(){
+        //手动管理构造函数注入，bean多了，会累死
         return new MessageService(messageRepository());
     }
 }

@@ -1,9 +1,12 @@
 package basic.com;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**预备知识：
+ * https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html
  * maven项目基本结构
  * vscode相关插件
  *   ESLint(dbaeumer.vscode-eslint)
@@ -14,6 +17,18 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  *   Spring Boot Tools(pivotal.vscode-spring-boot)
  *   Maven for Java(vscjava.vscode-maven)
  * POM：Project Object Model
+ * 
+ * 本例target:
+ * 使用配置类的method实例化bean，手动处理constructor/setter依赖，适用于只有少量bean的情况，
+ * 当bean有很多时，就需要耗费很多的精力来手动处理constructor/setter依赖，请体会这点（见配置类）。
+ * 这个问题将在后续通过使用annotation-based配置来解决。
+ * Spring提供了两类annotation，一类用于声明bean，另一类用于依赖注入(wire up dependency)。
+ * 另外，还需要理解的是为什么本例中只有两个bean(messageService, messageRepository)，分别起什么作用。
+ * 
+ * 本例依赖库：
+ *  spring-context：
+ *  log4j-api：
+ *  log4j-core：
  * 
  * Steps:
  * 1.创建 maven-archetype-quickstart 项目
@@ -38,6 +53,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class App 
 {
+    private final static Log log = LogFactory.getLog(App.class);
     public static void main( String[] args )
     {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
@@ -50,6 +66,6 @@ public class App
         msgService2.save("Hello, Spring! Again!");
 
         //bean在容器中是唯一的，由容器管理
-        System.out.println(String.format("MessageService bean: %s, %s", msgService1.toString(), msgService2.toString()));
+        log.info(String.format("***两个MessageService是同一个***: %s, %s", msgService1.toString(), msgService2.toString()));
     }
 }
