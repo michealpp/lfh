@@ -53,8 +53,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * private beanCls beanObj
  * -------------------------------
  * 
- * 
- * 
  */
 public class App 
 {
